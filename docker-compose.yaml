@@ -1,0 +1,50 @@
+---
+services:
+  simpledb:
+    container_name: simpledb
+    env_file:
+      - docker-compose.env
+    image: postgres:14-alpine
+    restart: unless-stopped
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - ./docker-volumes/database-volume/db-data:/var/lib/postgresql/data
+    networks:
+      - backend
+  simpleredis:
+    container_name: simpleredis
+    image: redis:7-alpine
+    networks:
+      - backend
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4:4.18
+    restart: unless-stopped
+    env_file:
+      - docker-compose.env
+    healthcheck:
+      test: ["CMD", "curl", "-f", "localhost"]
+      timeout: 5s
+      interval: 10s
+      retries: 5
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+      PGADMIN_DEFAULT_PORT: ${PGADMIN_DEFAULT_PORT}
+    ports:
+      - "8001:80"
+    volumes:
+      - ./docker-volumes/pgadmin-data:/var/lib/pgadmin
+    networks:
+      - backend
+networks:
+  backend:
+    driver: bridge
+volumes:
+  db-data:
+  pgadmin-data:
