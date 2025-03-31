@@ -13,7 +13,7 @@ const (
 	dbdriver = "postgres"
 	dbUri    = "postgresql://root:TEst.0429.30@localhost:5433/simple_bank?sslmode=disable"
 )
-
+var testDB *sql.DB
 var testQueries *Queries
 
 // load env variables
@@ -23,10 +23,12 @@ var testQueries *Queries
 // cannot be established, the function logs the error and terminates the 
 // program. After running all tests, it exits with the appropriate status code.
 func TestMain(m *testing.M) {
-	conn, err := sql.Open(dbdriver, dbUri)
+	var err error
+	
+	testDB, err = sql.Open(dbdriver, dbUri)
 	if err != nil {
 		log.Fatal("cannot connect to db:", err)
 	}
-	testQueries = New(conn)
+	testQueries = New(testDB)
 	os.Exit(m.Run())
 }
