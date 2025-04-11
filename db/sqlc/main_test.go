@@ -11,7 +11,7 @@ import (
 
 const (
 	dbdriver = "postgres"
-	dbUri    = "postgresql://root:TEst.0429.30@localhost:5433/simple_bank?sslmode=disable"
+	dbUri    = "postgresql://root:TEst.0429.30@localhost:5432/simple_bank?sslmode=disable"
 )
 var testDB *sql.DB
 var testQueries *Queries
