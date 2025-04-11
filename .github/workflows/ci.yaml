@@ -22,6 +22,9 @@ jobs:
           POSTGRES_USER: root
           POSTGRES_PASSWORD: TEst.0429.30
           POSTGRES_DB: simple_bank
+        # Expose the port to the host
+        ports:
+          - 5433:5432
         # Set health checks to wait until postgres has started
         options: >-
           --health-cmd pg_isready
@@ -40,9 +43,9 @@ jobs:
       - name: Install golang-migrate
         run: |
           curl -L https://github.com/golang-migrate/migrate/releases/download/v4.18.2/migrate.linux-arm64.tar.gz | tar xvz
-          sudo mv migrate.linux-arm64 /usr/bin/
+          sudo mv migrate /usr/bin/migrate
           which migrate
-          
+
       - name: Run migrations
         run: make migrateup
       - name: Test
