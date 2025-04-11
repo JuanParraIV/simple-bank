@@ -24,7 +24,7 @@ jobs:
           POSTGRES_DB: simple_bank
         # Expose the port to the host
         ports:
-          - 5433:5432
+          - 5432:5432
         # Set health checks to wait until postgres has started
         options: >-
           --health-cmd pg_isready
@@ -48,5 +48,6 @@ jobs:
 
       - name: Run migrations
         run: make migrateup
+
       - name: Test
         run: make test
