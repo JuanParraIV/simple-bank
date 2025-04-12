@@ -9,7 +9,7 @@ import (
 )
 
 func TestTransferTx(t *testing.T) {
-	store := newStore(testDB)
+	store := NewStore(testDB)
 
 	account1 := CreateRandomAccount(t)
 	account2 := CreateRandomAccount(t)
@@ -120,7 +120,7 @@ func TestTransferTx(t *testing.T) {
 }
 
 func TestTransferTxDeadlock(t *testing.T) {
-	store := newStore(testDB)
+	store := NewStore(testDB)
 	account1 := CreateRandomAccount(t)
 	account2 := CreateRandomAccount(t)
 	fmt.Println(">> before:", account1.Balance, account2.Balance)

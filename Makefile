@@ -1,6 +1,6 @@
-DB_URL=postgresql://root:TEst.0429.30@localhost:5432/simple_bank?sslmode=disable
+DB_URL=postgresql://root:TEst.0429.30@localhost:5433/simple_bank?sslmode=disable
 postgres:
-	docker run --name simpledb -e POSTGRES_USER=root -e POSTGRES_PASSWORD=TEst.0429.30 -p 54:5432 -d postgres:14-alpine
+	docker run --name simpledb -e POSTGRES_USER=root -e POSTGRES_PASSWORD=TEst.0429.30 -p 5433:5432 -d postgres:14-alpine
 
 postgresdown:
 	docker stop simpledb
@@ -21,6 +21,8 @@ sqlc:
 
 test:
 	go test -v -cover ./...
-	
-.PHONY: createdb dropdb postgres postgresdown migrateup migratedown sqlc test
+
+server:
+	go run main.go
+.PHONY: createdb dropdb postgres postgresdown migrateup migratedown sqlc test server
 

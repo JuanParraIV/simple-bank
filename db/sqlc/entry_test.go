@@ -5,14 +5,14 @@ import (
 	"testing"
 	"time"
 
-	"github.com/juanparraiv/simple-bank/util"
+	"github.com/juanparraiv/simple-bank/utils"
 	"github.com/stretchr/testify/require"
 )
 
 func createRandomEntry(t *testing.T, account Account) Entry {
 	arg := CreateEntriesParams{
 		AccountID: account.ID,
-		Amount:    util.RandomMoney(),
+		Amount:    utils.RandomMoney(),
 	}
 
 	entry, err := testQueries.CreateEntries(context.Background(), arg)

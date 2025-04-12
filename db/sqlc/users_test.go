@@ -4,20 +4,20 @@ import (
 	"context"
 	"testing"
 
-	"github.com/juanparraiv/simple-bank/util"
+	"github.com/juanparraiv/simple-bank/utils"
 	_ "github.com/lib/pq"
 	"github.com/stretchr/testify/require"
 )
 
 func createRandomUser(t *testing.T) User {
-	hashedPassword, err := util.HashPassword(util.RandomString(6))
+	hashedPassword, err := utils.HashPassword(utils.RandomString(6))
 	require.NoError(t, err)
 
 	arg := CreateUserParams{
-		Username:       util.RandomOwner(),
+		Username:       utils.RandomOwner(),
 		HashedPassword: hashedPassword,
-		FullName:       util.RandomOwner(),
-		Email:          util.RandomEmail(),
+		FullName:       utils.RandomOwner(),
+		Email:          utils.RandomEmail(),
 	}
 	user, err := testQueries.CreateUser(context.Background(), arg)
 	if err != nil {

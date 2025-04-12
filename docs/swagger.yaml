@@ -1,0 +1,98 @@
+definitions:
+  api.createAccountRequest:
+    properties:
+      currency:
+        enum:
+        - USD
+        - EUR
+        type: string
+      owner:
+        type: string
+    required:
+    - currency
+    - owner
+    type: object
+  db.Account:
+    properties:
+      balance:
+        type: integer
+      created_at:
+        type: string
+      currency:
+        type: string
+      id:
+        type: integer
+      owner:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /accounts:
+    get:
+      consumes:
+      - application/json
+      description: do ping
+      parameters:
+      - description: Page ID
+        in: query
+        name: page_id
+        required: true
+        type: integer
+      - description: Page Size
+        in: query
+        name: page_size
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: ping example
+      tags:
+      - example
+    post:
+      consumes:
+      - application/json
+      description: Create a new account
+      parameters:
+      - description: Create account request
+        in: body
+        name: account
+        required: true
+        schema:
+          $ref: '#/definitions/api.createAccountRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/db.Account'
+      summary: ping example
+      tags:
+      - example
+  /accounts/:id:
+    get:
+      consumes:
+      - application/json
+      description: |-
+        do ping
+        Get account by ID
+      parameters:
+      - description: Account ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/db.Account'
+swagger: "2.0"

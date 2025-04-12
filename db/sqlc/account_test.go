@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/juanparraiv/simple-bank/util"
+	"github.com/juanparraiv/simple-bank/utils"
 	"github.com/stretchr/testify/require"
 )
 
@@ -18,8 +18,8 @@ func CreateRandomAccount(t *testing.T) Account {
 	user := createRandomUser(t)
 	arg := CreateAccountParams{
 		Owner:    user.Username,
-		Balance:  util.RandomMoney(),
-		Currency: util.RandomCurrency(),
+		Balance:  utils.RandomMoney(),
+		Currency: utils.RandomCurrency(),
 	}
 	account, err := testQueries.CreateAccount(context.Background(), arg)
 	require.NoError(t, err)
@@ -56,7 +56,7 @@ func TestUpdateAccount(t *testing.T) {
 
 	arg := UpdateAccountParams{
 		ID:      account1.ID,
-		Balance: util.RandomMoney(),
+		Balance: utils.RandomMoney(),
 	}
 	account2, err := testQueries.UpdateAccount(context.Background(), arg)
 	require.NoError(t, err)
