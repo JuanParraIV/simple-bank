@@ -12,6 +12,8 @@ require (
 	golang.org/x/crypto v0.37.0
 )
 
+require github.com/golang/mock v1.6.0
+
 require (
 	github.com/KyleBanks/depth v1.2.1 // indirect
 	github.com/bytedance/sonic v1.13.2 // indirect
